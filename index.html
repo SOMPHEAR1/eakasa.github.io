@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Table from Google Sheets</title>
+  <!-- Including Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+
+  <!-- Including DataTables Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap4.css">
+
+  <!-- Including DataTables Scroller Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.4.1/css/scroller.bootstrap4.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hanuman&display=swap" rel="stylesheet">
+
+
+  <style>
+    body {
+            background-color: #f4f7fa;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            /* font-family: 'Hanuman', serif; */
+        }
+        .container-fluid {
+            margin-top: 20px;
+        }
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+            margin-bottom: 20px;
+        }
+        .dataTables_wrapper {
+            margin-top: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+        .btn-search {
+            width: 100%;
+            font-weight: bold;
+        }
+        table.dataTable thead th {
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+        table.dataTable tbody td {
+            color: #666;
+        }
+        .form-control {
+            border-radius: 0.25rem;
+            border: 1px solid #ced4da;
+        }
+    </style>
+  </style>
+
+ 
+</head>
+<body>
+  <div class="container-fluid">
+    <h2 class="text-center mt-4">ឯកសារកម្ពុជា</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dataTables_wrapper">
+                <!-- <div class="row mb-2">
+                    <div class="col-md-3">
+                        <select id="txt_type" class="form-control">
+                            <option value="">Select Document Type</option>
+                            <option value="រដ្ឋធម្មនុញ្ញ">រដ្ឋធម្មនុញ្ញ</option>
+                            <option value="ច្បាប់">ច្បាប់</option>
+                            <option value="អនុសញ្ញា">អនុសញ្ញា</option>
+                            <option value="សន្ធិសញ្ញា">សន្ធិសញ្ញា</option>
+                            <option value="កិច្ចព្រមព្រៀង">កិច្ចព្រមព្រៀង</option>
+                            <option value="គោលនយោបាយ">គោលនយោបាយ</option>
+                            <option value="ព្រះរាជក្រឹត្យ">ព្រះរាជក្រឹត្យ</option>
+                            <option value="អនុក្រឹត្យ">អនុក្រឹត្យ</option>
+                            <option value="ប្រកាស">ប្រកាស</option>
+                            <option value="ប្រកាសអន្តរក្រសួង">ប្រកាសអន្តរក្រសួង</option>
+                            <option value="សេចក្តីសម្រេច">សេចក្តីសម្រេច</option>
+                            <option value="សារាចរណែនាំ">សារាចរណែនាំ</option>
+                            <option value="សេចក្តីណែនាំ">សេចក្តីណែនាំ</option>
+                            <option value="សេចក្តីជូនដំណឹង">សេចក្តីជូនដំណឹង</option>
+                            <option value="សៀវភៅណែនាំ">សៀវភៅណែនាំ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="txt_sector" class="form-control">
+                            <option value="">Select Sector</option>
+                            <option value="ការពាជាតិ">ការពាជាតិ</option>
+                            <option value="សណ្តាប់ធ្នាប់សង្គម">សណ្តាប់ធ្នាប់សង្គម</option>
+                            <option value="ពន្ធដា">ពន្ធដា</option>
+                            <option value="គយ">គយ</option>
+                            <option value="សុខាភិបាល">សុខាភិបាល</option>
+                            <option value="សំណង">សំណង</option>
+                            <option value="សុរិយោដី">សុរិយោដី</option>
+                            <option value="គ្រប់គ្រងជនបរទេស">គ្រប់គ្រងជនបរទេស</option>
+                            <option value="តម្លៃសេវាសាធារណៈ">តម្លៃសេវាសាធារណៈ</option>
+                            <option value="កិច្ចការអាស៊ាន">កិច្ចការអាស៊ាន</option>
+                            <option value="វិនិយោគ&ZeroWidthSpace;">វិនិយោគ&ZeroWidthSpace;</option>
+                            <option value="ពាណិជ្ជកម្ម&ZeroWidthSpace;">ពាណិជ្ជកម្ម&ZeroWidthSpace;</option>
+                            <option value="កសិកម្ម">កសិកម្ម</option>
+                            <option value="វប្បធម៍">វប្បធម៍</option>
+                            <option value="យុត្តិធម៍">យុត្តិធម៍</option>
+                            <option value="អប់រំ យុវជន កុមារ">អប់រំ យុវជន កុមារ</option>
+                            <option value="ទេសចរ ">ទេសចរ </option>
+                            <option value="ធនធានរ៉ែ ថាមពល">ធនធានរ៉ែ ថាមពល</option>
+                            <option value="ការងារ">ការងារ</option>
+                            <option value="ឧស្សាហកម្ម">ឧស្សាហកម្ម</option>
+                            <option value="ធនាគារ ">ធនាគារ </option>
+                            <option value="សាធារណៈការ">សាធារណៈការ</option>
+                            <option value="បរិស្ថាន">បរិស្ថាន</option>
+                            <option value="មូលបត្រ">មូលបត្រ</option>
+                            <option value="មុខងារសាធារណៈ">មុខងារសាធារណៈ</option>
+                            <option value="វិទ្យាសាស្រ្ត">វិទ្យាសាស្រ្ត</option>
+                            <option value="គណនេយ្យ និង&ZeroWidthSpace; សវនកម្ម">គណនេយ្យ និង&ZeroWidthSpace; សវនកម្ម</option>
+                            <option value="ហិរញ្ញវត្ថុសាធារណៈ">ហិរញ្ញវត្ថុសាធារណៈ</option>
+                            <option value="អាកាសចរណ៍ស៊ីវិល&ZeroWidthSpace;">អាកាសចរណ៍ស៊ីវិល&ZeroWidthSpace;</option>
+                            <option value="ទូរគមនាគមន៍">ទូរគមនាគមន៍</option>
+                            <option value="ស្ថិតិ និង ស្តង់ដា">ស្ថិតិ និង ស្តង់ដា</option>
+                            <option value="ការបោះឆ្នោត">ការបោះឆ្នោត</option>
+                            <option value="អត្រានុកូលដ្ឋាន">អត្រានុកូលដ្ឋាន</option>
+                            <option value="សមាគម អង្គការ">សមាគម អង្គការ</option>
+                            <option value="ធានារ៉ាប់រ៉ង">ធានារ៉ាប់រ៉ង</option> 
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="txt_year" placeholder="Enter Year">
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-primary btn-rounded btn-search">Search <i class="fa fa-search"></i></button>
+                    </div>
+                </div> -->
+                <table id="myDataTable" class="table table-striped table-bordered nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>លេខឯកសារ</th>
+                            <th>ប្រភេទ ឯកសារ</th>
+                            <th>ឈ្មោះឯកសារ</th>
+                            <!-- <th>Document In English</th>  -->
+                            <th>ថ្ងៃចេញ</th>  
+                            <th>ការកែសម្រួល/វិសោធនកម្ម</th>
+                            <!-- <th>Link Website</th>
+                            <th>Link English</th> -->
+                            <th>ស្ថាបន័ចេញ</th>
+                            <th>វិស័យ</th>
+                            <th>Download KH</th>
+                            <th>Download EN</th>
+                            <th>ឆ្នាំ</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- <div class="row mt-4 ml-4 mr-4 border border-dark p-4 rounded" >
+        <div class="col-md-2">
+            <p class="mg-b-10">ប្រភេទ ឯកសារ</p>
+            <select name="txt_branch_id" class="form-control txt_branch_id search-type" placeholder="Please select" id="txt_type"  style="width:100%" >  
+                <option value="0"> Please select</option>
+                <option value="រដ្ឋធម្មនុញ្ញ">រដ្ឋធម្មនុញ្ញ</option>
+                <option value="ច្បាប់">ច្បាប់</option>
+                <option value="អនុសញ្ញា">អនុសញ្ញា</option>
+                <option value="សន្ធិសញ្ញា">សន្ធិសញ្ញា</option>
+                <option value="កិច្ចព្រមព្រៀង">កិច្ចព្រមព្រៀង</option>
+                <option value="គោលនយោបាយ">គោលនយោបាយ</option>
+                <option value="ព្រះរាជក្រឹត្យ">ព្រះរាជក្រឹត្យ</option>
+                <option value="អនុក្រឹត្យ">អនុក្រឹត្យ</option>
+                <option value="ប្រកាស">ប្រកាស</option>
+                <option value="ប្រកាសអន្តរក្រសួង">ប្រកាសអន្តរក្រសួង</option>
+                <option value="សេចក្តីសម្រេច">សេចក្តីសម្រេច</option>
+                <option value="សារាចរណែនាំ">សារាចរណែនាំ</option>
+                <option value="សេចក្តីណែនាំ">សេចក្តីណែនាំ</option>
+                <option value="សេចក្តីជូនដំណឹង">សេចក្តីជូនដំណឹង</option>
+                <option value="សៀវភៅណែនាំ">សៀវភៅណែនាំ</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <p class="mg-b-10">វិស័យ</p>
+                <select name="txt_post_id" class="form-control select2 search-sector" placeholder="Please select" id="txt_sector" style="width:100%">  
+                    <option value="0"> Please select</option>
+                    <option value="ការពាជាតិ">ការពាជាតិ</option>
+                    <option value="សណ្តាប់ធ្នាប់សង្គម">សណ្តាប់ធ្នាប់សង្គម</option>
+                    <option value="ពន្ធដា">ពន្ធដា</option>
+                    <option value="គយ">គយ</option>
+                    <option value="សុខាភិបាល">សុខាភិបាល</option>
+                    <option value="សំណង">សំណង</option>
+                    <option value="សុរិយោដី">សុរិយោដី</option>
+                    <option value="គ្រប់គ្រងជនបរទេស">គ្រប់គ្រងជនបរទេស</option>
+                    <option value="តម្លៃសេវាសាធារណៈ">តម្លៃសេវាសាធារណៈ</option>
+                    <option value="កិច្ចការអាស៊ាន">កិច្ចការអាស៊ាន</option>
+                    <option value="វិនិយោគ&ZeroWidthSpace;">វិនិយោគ&ZeroWidthSpace;</option>
+                    <option value="ពាណិជ្ជកម្ម&ZeroWidthSpace;">ពាណិជ្ជកម្ម&ZeroWidthSpace;</option>
+                    <option value="កសិកម្ម">កសិកម្ម</option>
+                    <option value="វប្បធម៍">វប្បធម៍</option>
+                    <option value="យុត្តិធម៍">យុត្តិធម៍</option>
+                    <option value="អប់រំ យុវជន កុមារ">អប់រំ យុវជន កុមារ</option>
+                    <option value="ទេសចរ ">ទេសចរ </option>
+                    <option value="ធនធានរ៉ែ ថាមពល">ធនធានរ៉ែ ថាមពល</option>
+                    <option value="ការងារ">ការងារ</option>
+                    <option value="ឧស្សាហកម្ម">ឧស្សាហកម្ម</option>
+                    <option value="ធនាគារ ">ធនាគារ </option>
+                    <option value="សាធារណៈការ">សាធារណៈការ</option>
+                    <option value="បរិស្ថាន">បរិស្ថាន</option>
+                    <option value="មូលបត្រ">មូលបត្រ</option>
+                    <option value="មុខងារសាធារណៈ">មុខងារសាធារណៈ</option>
+                    <option value="វិទ្យាសាស្រ្ត">វិទ្យាសាស្រ្ត</option>
+                    <option value="គណនេយ្យ និង&ZeroWidthSpace; សវនកម្ម">គណនេយ្យ និង&ZeroWidthSpace; សវនកម្ម</option>
+                    <option value="ហិរញ្ញវត្ថុសាធារណៈ">ហិរញ្ញវត្ថុសាធារណៈ</option>
+                    <option value="អាកាសចរណ៍ស៊ីវិល&ZeroWidthSpace;">អាកាសចរណ៍ស៊ីវិល&ZeroWidthSpace;</option>
+                    <option value="ទូរគមនាគមន៍">ទូរគមនាគមន៍</option>
+                    <option value="ស្ថិតិ និង ស្តង់ដា">ស្ថិតិ និង ស្តង់ដា</option>
+                    <option value="ការបោះឆ្នោត">ការបោះឆ្នោត</option>
+                    <option value="អត្រានុកូលដ្ឋាន">អត្រានុកូលដ្ឋាន</option>
+                    <option value="សមាគម អង្គការ">សមាគម អង្គការ</option>
+                    <option value="ធានារ៉ាប់រ៉ង">ធានារ៉ាប់រ៉ង</option> 
+                </select>
+        </div>
+        <div class="col-md-2">
+            <p class="mg-b-10">ឆ្នាំ</p>
+            <input type="text" class="form-control search-year">
+        </div>
+        <div  class="col-md-2 mt-4">
+            <button class="btn ripple btn-primary btn-rounded btn-search mt-3" type="button"> <i class="fa fa-search"></i> Search</button>
+        </div>
+  </div>? -->
+ 
+
+  <!-- Including jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+  <!-- Including Popper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+  <!-- Including Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Including DataTables -->
+  <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap4.js"></script>
+
+  <!-- Including DataTables Scroller -->
+  <script src="https://cdn.datatables.net/scroller/2.4.1/js/dataTables.scroller.js"></script>
+  <script src="https://cdn.datatables.net/scroller/2.4.1/js/scroller.bootstrap4.js"></script>
+
+  <script type="text/javascript">
+    var  table_search;
+    $(document).ready(function() {
+        table_search= $('#myDataTable').DataTable({
+            "orderCellsTop": true,
+            "fixedHeader": true,
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "https://script.google.com/macros/s/AKfycbyKhuPExrmvUm_i66Brqar5eyIbKnaO7beqea0dNam2SbFtHVDr7qyC4CZV1Jdsu4g/exec",
+                "type": "GET",
+                "data": function(d) {
+                    console.log(d);
+                        // Additional data to send to the server
+                    d.searchValue = d.search.value; // Search value
+
+                    if (d.order && d.order.length > 0) {
+                        // Get the column index for sorting from the first item in the 'order' array
+                        d.orderColumn = d.order[0].column; // This passes the index
+                        d.orderDir = d.order[0].dir; // Sorting direction: 'asc' or 'desc'
+                    } else {
+                        // Provide defaults if no sorting is applied
+                        d.orderColumn = null;
+                        d.orderDir = null;
+                    }
+                },
+                "error": function (xhr, error, thrown) {
+                    console.error('Error occurred during AJAX call:', xhr, error, thrown);
+                }
+            },
+            "scrollY": "90%",  // Adjust based on the desired vertical scroll height
+            "scrollX": true,     // Enable horizontal scrolling
+            "scrollCollapse": true,
+            "columns": [
+                { "data": "no", "name": "no" ,"width": "2%" },
+                { "data": "type", "name": "ប្រភេទ ឯកសារ" },
+                { "data": "name", "name": "ឈ្មោះឯកសារ" },
+                // { "data": "english", "name": "Document In English" },
+                { "data": "release_date", "name": "ថ្ងៃចេញ" },
+                { "data": "edit", "name": "ការកែសម្រួល/វិសោធនកម្ម" },
+                // { "data": "link_website", "name": "Link Website" },
+                // { "data": "link_english", "name": "Link English" },
+                { "data": "dep_out", "name": "ស្ថាបន័ចេញ" },
+                { "data": "sector", "name": "sector" },
+                { "data": "download_kh", "name": "Download KH" ,render: function(data, type, full, meta){  
+                        var result = '<a href="'+ data+ ' target="_blank">download</a>';
+                        return result;
+                    },
+                },
+                { "data": "download_en", "name": "Download EN",render: function(data, type, full, meta){
+                           
+                           var result = '<a href="'+ data+ ' target="_blank">download</a>';
+                           return result;
+                       }, },
+                { "data": "year", "name": "year" }
+            ],
+        
+     
+            "order": [[3, "desc"]], 
+
+            orderCellsTop: true
+        });
+        
+    });
+
+    $(document).on('click','.btn-search',function(){
+        var type = $('#txt_type').val();
+        var sector = $('#txt_sector').val();
+        var year = $('#txt_year').val();
+        // alert(year);
+        // table.column(1).search(type).column(6).search(sector).column(9).search(year).draw();
+        // alert(sector);
+        table_search.column(9).search(year).draw();
+  
+
+    //     table_search.search('').columns().search('');
+
+    //     // Apply new search to multiple columns
+    //     table_search.column('no:name').search('John').draw();
+        // var columnIndex = table_search.column('no:name').index();
+
+        // // Check if the column was found
+        // if (columnIndex !== undefined) {
+        //     // Perform search on that specific column
+        //     alert(columnIndex);
+        //     var str = "៣៥២ ក.ប/ប្រក";
+        //     $('#myDataTable').DataTable().column(1).search(str).draw();
+        // } else {
+        //     console.error("Column not found");
+        });
+       
+   
+    //    var type = $('.search-type option:selected').val();
+  
+    //    var sec =  $('.search-sector option:selected').val();
+    //    // table_search.columns(1).search(branch).columns(2).search(dep).draw();
+    
+    //    var year = $('.search-year').val();
+    //    alert(year);
+    //    alert(sec);
+    //    alert(type);
+
+    //    if(type != "0" && sec == "0" ){
+    //     alert("Hellok");
+    //        table_search.columns(1).search(type).draw();
+    //    }
+
+    //    if(type != '0' && sec != '0' && year == ''){
+    
+    //        table_search.columns(1).search(type).columns(6).search(sec).draw();
+    //    }
+
+
+    //    if(type != '0' && sec != "0" && year != ""){
+        
+    //        table_search.columns(1).search(type).columns(6).search(sec).columns(9).search(year).draw();
+    //    }
+
+    //    if(type == '0' && sec == "0" && year != ""){
+
+    //        table_search.columns(9).search(year).draw();
+    //    }
+
+
+
+//    });
+
+
+  </script>
+<!-- jQuery -->
+
+
+</body>
+</html>
